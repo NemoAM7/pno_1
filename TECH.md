@@ -1,7 +1,7 @@
 # TECH — Sports Ecommerce Brand Website
 
 > **Status:** Draft v1
-> **Last Updated:** Aug 08 2026
+> **Last Updated:** Aug 14 2026
 > **Supersedes:** none — initial architecture
 > **Related:** [PRD.md](./PRD.md)
 
@@ -37,13 +37,22 @@ All versions below were verified as the current **stable** release on npm as of 
 - **Export:** `output: 'export'` for a fully static build deployable to Netlify / Vercel / GitHub Pages.
 - **Bundler:** Turbopack (default in Next 16 for dev and build). Do not add custom webpack config.
 
-### 2.2 Data: local JSON fixtures (no backend)
+### 2.2 Data: local JSON fixtures plus managed customization storage
 - Product/category/copy data lives in `data/*.json`, imported at build time.
 - Every fixture is validated at runtime with a Zod schema so a bad entry fails loudly, not silently.
+- Customization requests are submitted to an external managed form/CRM endpoint. The provider is the durable system of record for these leads and exposes owner-facing review/notification tools.
 
 ### 2.3 Cart / checkout state: client-only
 - Zustand store persisted to `localStorage`.
 - Payment is **mocked** behind a small interface (`lib/checkout/payment.ts`) so a real provider (e.g., Stripe) swaps in later with one implementation change.
+
+### 2.4 Customization request persistence
+- The storefront remains statically exportable; it does not add a database or Next.js runtime API route for this feature.
+- A client adapter submits a Zod-validated request to a configured managed form/CRM endpoint.
+- Provider activation is deferred. Until `NEXT_PUBLIC_CUSTOMIZATION_ENDPOINT` is configured and verified, the customization flow must be treated as development-only and not presented as a production lead channel.
+- The endpoint configuration is supplied through `NEXT_PUBLIC_CUSTOMIZATION_ENDPOINT`; provider credentials must never be embedded in the client bundle.
+- The provider must support HTTPS, spam protection/rate limiting, owner notifications, and export/deletion of submissions.
+- If the selected provider later requires a secret server-side credential, add a serverless proxy as a deliberate hosting change rather than putting the secret in the browser.
 
 ---
 
@@ -88,6 +97,8 @@ All versions below were verified as the current **stable** release on npm as of 
 - `lib/schemas/product.ts` — `ProductSchema`, `VariantSchema` (validates fixtures + typed as the source of truth via `z.infer`).
 - `lib/schemas/checkout.ts` — shipping address, shipping method, (mock) payment.
 - `lib/schemas/contact.ts` — contact form.
+- `lib/schemas/customization.ts` — product customization request form and submission contract.
+- Product fixtures use `isCustomizable` to control whether an existing-product request CTA is shown.
 - Checkout steps run `.safeParse()` and render field-level errors.
 
 ### 5.3 Tailwind 4 — styling
@@ -103,7 +114,7 @@ All versions below were verified as the current **stable** release on npm as of 
 
 ### 6.1 Server / Client boundary
 - Default: **Server Components**. No interactivity needed → no `"use client"`.
-- Interactive only: cart drawer, add-to-cart, quantity controls, checkout form, mobile nav, gallery. Mark those files `"use client"`.
+- Interactive only: cart drawer, add-to-cart, quantity controls, checkout form, mobile nav, gallery, and customization request form. Mark those files `"use client"`.
 - Keep client bundles small — a cart store hook is shared, but page shells stay server-rendered.
 
 ### 6.2 Feature-based folder structure (App Router)
@@ -121,14 +132,18 @@ app/
     layout.tsx
     page.tsx            # multi-step form (client component)
     success/page.tsx    # order confirmation
+  customize/page.tsx    # customization request entry point
+  policies/page.tsx     # shipping, returns, privacy, terms
   about/page.tsx
   contact/page.tsx
   globals.css
 components/
   ui/                   # primitives: Button, Input, Badge, Skeleton...
   product/              # ProductCard, ProductGallery, VariantPicker, AddToCart
-  cart/                 # CartDrawer, CartLineItem, QtyStepper
+  cart/                 # CartDrawer, CartLineItem, CartPageContent, QtyStepper
   checkout/             # CheckoutForm, OrderSummary, PaymentSection
+  customization/        # CustomizationRequestForm
+  contact/              # ContactForm, FaqSection
   layout/               # Header, Footer, MobileNav
 data/
   products.json
@@ -137,6 +152,7 @@ data/
 lib/
   money.ts              # currency formatting + arithmetic (cents-based)
   checkout/payment.ts   # PaymentProvider interface + MockPaymentProvider
+  customization/client.ts # managed form/CRM submission adapter
   schemas/              # zod schemas
 stores/
   cart.ts               # zustand store (+ persist)

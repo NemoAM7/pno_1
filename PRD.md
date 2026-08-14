@@ -69,6 +69,15 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 - Responsive design (mobile-first).
 - Basic toast/feedback on actions (added to cart, errors).
 
+### 2.8 Product Customization Requests
+- Customers can submit either an existing-product customization request or a new-product request.
+- Eligible product detail pages offer a customization CTA with the product and selected variant prefilled.
+- A general customization entry point supports products that do not exist in the catalog.
+- The request form collects the customer's name, email, phone number, product details, preferences, and customization request.
+- The customer receives clear success and error feedback after submission.
+- Requests are persisted in a managed form/CRM service so the business owner can review and contact the customer later.
+- The form includes consent for follow-up communication and a spam-protection mechanism.
+
 ---
 
 ## 3. User Flows
@@ -93,6 +102,14 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 ### 3.4 About
 1. User clicks "About" in nav → reads brand story → clicks "Explore" CTA to start shopping.
 
+### 3.5 Customization Request
+1. User chooses an existing catalog product or starts a new-product request.
+2. For an existing product, the user opens an eligible jersey PDP, selects a variant, and chooses "Request customization".
+3. For a new product, the user chooses "Request a custom jersey" from the general customization entry point.
+4. User enters contact details, product preferences, and describes the requested customization.
+5. The request is validated and submitted to the managed form/CRM service.
+6. The user sees a confirmation message; the business owner reviews the lead in the provider dashboard or notification inbox.
+
 ---
 
 ## 4. Scope Constraints
@@ -101,10 +118,11 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 - Public storefront pages (Explore, PDP, Cart, Checkout, About, Contact).
 - Client-side cart state persisted in localStorage.
 - Mock checkout (payment simulated in dev; payment provider stubbed behind an interface).
+- Customization request capture for eligible products, persisted through a managed form/CRM service.
 - No real payments, inventory sync, or customer accounts in v1.
 
 ### 4.2 Out of Scope / Non-Goals (v1)
-- **No backend / database.** All data served from local fixtures/JSON.
+- **No commerce backend / database.** Catalog data is served from local fixtures/JSON. Customization requests are the explicit v1 exception and are persisted by an external managed form/CRM service.
 - **No real payments or PCI compliance.**
 - **No user accounts / auth / order history.**
 - **No admin dashboard or inventory management.**
@@ -112,6 +130,7 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 - **No multi-language or multi-currency.**
 - **No SEO/analytics tooling** beyond basic metadata (later iteration).
 - **No native mobile app.**
+- **No custom admin dashboard.** The business owner uses the managed form/CRM provider's dashboard and notifications for customization leads.
 
 ---
 
@@ -131,10 +150,14 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 |---|-----------|-------------|--------|
 | M1 | Scaffold + design system | Project setup, theme/tokens, base components | Done |
 | M2 | Catalog & Explore | Home, category, listing, PDP | Done |
-| M3 | Cart | Add/remove/update, persisted state | Not started |
-| M4 | Checkout | Address, shipping, payment mock, confirmation | Not started |
-| M5 | Content pages | About, Contact, FAQ, footer/policies | Not started |
-| M6 | Polish & launch | Responsive QA, performance, deploy | Not started |
+| M3 | Cart | Add/remove/update, persisted state | Done |
+| M4A | Customization request UI and contract | Jersey CTA, existing/new product form, validation, success/error UI | Done |
+| M4B | Customization provider activation | Managed form/CRM selection, endpoint configuration, persistence verification | Deferred |
+| M5 | Checkout | Address, shipping, payment mock, confirmation | Done |
+| M6 | Content pages | About, Contact, FAQ, footer/policies | Done |
+| M7 | Polish & launch | Responsive QA, performance, privacy/accessibility review, deploy | Not started |
+
+> **M4B deferral:** The customization form and request contract are implemented, but provider selection and durable lead storage are intentionally deferred. The customization flow is not production-ready until a managed provider is configured and verified.
 
 ---
 

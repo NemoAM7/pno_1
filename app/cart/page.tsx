@@ -1,3 +1,6 @@
+import { CartPageContent } from '@/components/cart/CartPageContent';
+import { getShippingMethods } from '@/lib/api';
+
 export default function Page() {
-  return null;
+  return <CartPageContent shippingMethods={getShippingMethods()} />;
 }

@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
 export const ShippingAddressSchema = z.object({
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
-  address1: z.string().min(1),
+  firstName: z.string().trim().min(1, 'Enter your first name'),
+  lastName: z.string().trim().min(1, 'Enter your last name'),
+  address1: z.string().trim().min(1, 'Enter your address'),
   address2: z.string().optional(),
-  city: z.string().min(1),
-  postalCode: z.string().min(1),
-  country: z.string().min(2),
+  city: z.string().trim().min(1, 'Enter your city'),
+  postalCode: z.string().trim().min(1, 'Enter your postal code'),
+  country: z.string().trim().min(2, 'Enter your country'),
 });
 
 export type ShippingAddress = z.infer<typeof ShippingAddressSchema>;
@@ -34,13 +34,14 @@ export const CheckoutLineItemSchema = z.object({
 export type CheckoutLineItem = z.infer<typeof CheckoutLineItemSchema>;
 
 export const PaymentInputSchema = z.object({
-  token: z.string(),
+  token: z.string().min(1),
 });
 
 export type PaymentInput = z.infer<typeof PaymentInputSchema>;
 
 export const CheckoutRequestSchema = z.object({
   items: z.array(CheckoutLineItemSchema).min(1),
+  email: z.email('Enter a valid email address'),
   shipping: ShippingAddressSchema,
   shippingMethodId: z.string(),
   payment: PaymentInputSchema,

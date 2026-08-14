@@ -21,19 +21,33 @@ export interface CartState {
   clear: () => void;
 }
 
+export function getCartItemCount(lines: CartLine[]): number {
+  return lines.reduce((total, line) => total + line.quantity, 0);
+}
+
+export function getCartSubtotalCents(lines: CartLine[]): number {
+  return lines.reduce((total, line) => total + line.unitCents * line.quantity, 0);
+}
+
+function normalizeQuantity(quantity: number): number {
+  return Number.isFinite(quantity) ? Math.floor(quantity) : 0;
+}
+
 export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       lines: [],
       addItem: (line) =>
         set((state) => {
-          const existing = state.lines.find((l) => l.variantId === line.variantId);
+          const quantity = normalizeQuantity(line.quantity);
+          if (quantity < 1) return state;
+          const existing = state.lines.find((item) => item.variantId === line.variantId);
           if (!existing) {
-            return { lines: [...state.lines, line] };
+            return { lines: [...state.lines, { ...line, quantity }] };
           }
           return {
             lines: state.lines.map((l) =>
-              l.variantId === line.variantId ? { ...l, quantity: l.quantity + line.quantity } : l,
+              l.variantId === line.variantId ? { ...l, quantity: l.quantity + quantity } : l,
             ),
           };
         }),
@@ -42,7 +56,7 @@ export const useCartStore = create<CartState>()(
       updateQuantity: (variantId, quantity) =>
         set((state) => ({
           lines: state.lines
-            .map((l) => (l.variantId === variantId ? { ...l, quantity } : l))
+            .map((l) => (l.variantId === variantId ? { ...l, quantity: normalizeQuantity(quantity) } : l))
             .filter((l) => l.quantity > 0),
         })),
       clear: () => set({ lines: [] }),

@@ -22,6 +22,7 @@ export const ProductSchema = z.object({
   materials: z.array(z.string()),
   isFeatured: z.boolean(),
   isInStock: z.boolean(),
+  isCustomizable: z.boolean().default(false),
   variants: z.array(VariantSchema),
 });
 

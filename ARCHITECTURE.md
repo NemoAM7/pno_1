@@ -1,15 +1,16 @@
 # ARCHITECTURE — Sports Ecommerce Brand Website
 
 > **Status:** Draft v1
-> **Last Updated:** Aug 08 2026
+> **Last Updated:** Aug 14 2026
 > **Related:** [PRD.md](./PRD.md) · [TECH.md](./TECH.md)
 
 ## 0. Core Principle
 
-**v1 ships with no runtime backend.** The site is a statically exported Next.js app:
+**v1 ships with no commerce runtime backend.** The site remains a statically exported Next.js app, with one external lead-capture integration:
 - Product data is read from local JSON fixtures at **build time**.
 - Cart and checkout run entirely in the browser.
 - Payment is a mocked in-browser provider.
+- Product customization requests are submitted over HTTPS to a managed form/CRM service, which stores the lead and provides owner-facing notifications/review.
 
 **The architecture is designed so a backend can be added later without a rewrite** (per PRD §4 and TECH §6.5). The DB schema and HTTP API in §4 and §5 are the **target design for v2+** — documented now so the v1 data shapes and interfaces align with them. They are **not implemented in v1**.
 
@@ -30,11 +31,16 @@
                  │  data/*.json    │   │  localStorage    │
                  │  (build-time)   │   │  (cart, zustand) │
                  └─────────────────┘   └──────────────────┘
-                               │
-            ┌──────────────────▼──────────────────┐
-            │    FUTURE (v2+): Node backend       │
-            │  API routes + PostgreSQL (unbuilt)  │
-            └─────────────────────────────────────┘
+                                │
+             ┌──────────────────▼──────────────────┐
+             │ MANAGED FORM/CRM SERVICE (v1 leads) │
+             │ durable storage + owner dashboard   │
+             └─────────────────────────────────────┘
+
+             ┌──────────────────▼──────────────────┐
+             │ FUTURE (v2+): Node backend + DB     │
+             │ first-party commerce and lead APIs  │
+             └─────────────────────────────────────┘
 ```
 
 ---
@@ -86,6 +92,12 @@ grabin/
 │   │   └── success/
 │   │       └── page.tsx         # order confirmation
 │   │
+│   ├── customize/
+│   │   └── page.tsx              # customization request entry point
+│   │
+│   ├── policies/
+│   │   └── page.tsx              # shipping, returns, privacy, terms
+│   │
 │   ├── about/
 │   │   └── page.tsx
 │   │
@@ -103,6 +115,9 @@ grabin/
 │   │   ├── Header.tsx
 │   │   ├── Footer.tsx
 │   │   └── MobileNav.tsx
+│   ├── contact/
+│   │   ├── ContactForm.tsx
+│   │   └── FaqSection.tsx
 │   ├── product/
 │   │   ├── ProductCard.tsx
 │   │   ├── ProductGallery.tsx
@@ -111,11 +126,14 @@ grabin/
 │   ├── cart/
 │   │   ├── CartDrawer.tsx
 │   │   ├── CartLineItem.tsx
+│   │   ├── CartPageContent.tsx
 │   │   └── QuantityStepper.tsx
 │   └── checkout/
 │       ├── CheckoutForm.tsx
 │       ├── OrderSummary.tsx
 │       └── PaymentSection.tsx
+│   └── customization/
+│       └── CustomizationRequestForm.tsx
 │
 ├── data/
 │   ├── products.json
@@ -130,9 +148,14 @@ grabin/
 │   │   ├── product.ts
 │   │   ├── checkout.ts
 │   │   ├── contact.ts
+│   │   ├── customization.ts
 │   │   └── order.ts
 │   └── checkout/
 │       └── payment.ts           # PaymentProvider + MockPaymentProvider
+│   └── customization/
+│       └── client.ts             # managed form/CRM submission adapter
+│   └── schemas/
+│       └── newsletter.ts          # newsletter signup contract
 │
 ├── stores/
 │   └── cart.ts                  # zustand + persist (localStorage)
@@ -187,6 +210,8 @@ app/   (pages, routes — composition only)
 6. **`stores/cart.ts`** — client-only. Imported only by client components (`"use client"`).
 7. **Client/Server rule** — pages and shells are Server Components by default; files marked `"use client"` only where interactivity exists (cart, checkout, forms, gallery, nav).
 8. **No circular imports** between `lib/`, `stores/`, `components/`.
+9. **Customization submissions** go through `lib/customization/client.ts`; UI components must not call a provider endpoint directly or store requests in localStorage.
+10. **Customer data** must be validated with `lib/schemas/customization.ts`; never log raw phone numbers or request contents in production.
 
 ---
 
@@ -223,6 +248,23 @@ All fixtures live in `data/*.json` and are typed/validated by Zod schemas in `li
 - `categories.json` — `{ id, name, slug, description }`
 - `shipping-methods.json` — `{ id, label, priceCents, etaDays }` (static, no carrier integration in v1)
 - `faqs.json` — `{ question, answer }`
+
+### 3.3 Customization request shape
+Customization requests are not local fixtures. They are validated before submission and stored by the managed form/CRM provider:
+```json
+{
+  "requestType": "existing-product",
+  "productId": "aero-racer-jersey",
+  "variantId": "aero-racer-jersey-medium-blue",
+  "name": "Ayaan Khan",
+  "email": "ayaan@example.com",
+  "phone": "+44 7000 000000",
+  "request": "Add initials AK on the left chest",
+  "consent": true
+}
+```
+
+New-product requests use `requestType: "new-product"`, omit `productId` and `variantId`, and include `productType`, `preferredSize`, and `preferredColor` instead.
 
 ---
 
@@ -324,7 +366,7 @@ CREATE TABLE contact_messages (             -- contact form submissions
 
 ## 5. API Schemas
 
-### 5.1 v1: there is no HTTP API
+### 5.1 v1: catalog has no first-party HTTP API
 - `lib/api.ts` is a **thin resolver** used by v1. It loads fixtures synchronously at build time and exposes typed functions (`getProducts()`, `getProductBySlug()`, `getCategories()`) so pages have a single data access point.
 - In v2+, this same file becomes the client for the HTTP API (§5.2), **keeping the same function signatures** — pages don't change.
 
@@ -395,12 +437,20 @@ Response `201`:
 **POST `/api/contact`**
 Request: `{ "name", "email", "subject", "message" }` → Response `201`: `{ "data": { "id": "…", "status": "new" } }`
 
-### 5.3 Contract source of truth
+### 5.3 v1 external customization submission
+- Provider activation is deferred until a managed form/CRM service is selected and configured. The current form/adapter contract is development-only until then.
+- The client sends the validated customization request to `NEXT_PUBLIC_CUSTOMIZATION_ENDPOINT` over HTTPS.
+- The provider is responsible for persistence, spam controls, owner notifications, and owner access.
+- The UI only treats an accepted provider response as success; it must show a retryable error when submission fails.
+- The provider's exact payload adapter belongs in `lib/customization/client.ts` so switching providers does not change the form component.
+
+### 5.4 Contract source of truth
 The **Zod schemas in `lib/schemas/`** are the contract for both fixtures and API payloads:
 - `product.ts` → `Product`, `Variant`, `Category` (defines §3.1 JSON and §5.2 list item)
 - `checkout.ts` → `CheckoutRequest`, `ShippingAddress` (defines §5.2 POST body)
 - `order.ts` → `Order`, `OrderLine` (defines §5.2 response + DB §4 `orders`)
 - `contact.ts` → `ContactMessage`
+- `customization.ts` → `CustomizationRequest`
 
 The DB tables in §4 are generated from these same shapes, so **fixture → API → DB** never drift.
 
@@ -416,7 +466,9 @@ The DB tables in §4 are generated from these same shapes, so **fixture → API 
 [Header] cart count ◀── selector(itemCount) ◀───┘
 [CartDrawer] ◀── useCartStore  (remove/updateQuantity/clear)
 [Checkout]  reads cart snapshot ──▶ builds CheckoutRequest
-             ──▶ lib/checkout/payment.ts (Mock) ──▶ success page (order number)
+              ──▶ lib/checkout/payment.ts (Mock) ──▶ success page (order number)
+[PDP] customization CTA ──▶ CustomizationRequestForm ──▶ Zod validation
+              ──▶ lib/customization/client.ts ──▶ managed form/CRM service
 ```
 
 - Single source of truth for the cart: `stores/cart.ts`.
@@ -433,6 +485,7 @@ The DB tables in §4 are generated from these same shapes, so **fixture → API 
 | Payment | `MockPaymentProvider` | `StripeProvider` | `PaymentProvider` interface |
 | Checkout | client-only, mock | `POST /api/checkout` | `CheckoutRequest` schema |
 | Contact | simulated success | `POST /api/contact` | `ContactMessage` schema |
+| Customization | managed form/CRM submission | first-party lead endpoint + database | `CustomizationRequest` schema |
 | Hosting | static export (CDN) | Node runtime (Vercel etc.) | App Router structure |
 
 ---
@@ -441,3 +494,5 @@ The DB tables in §4 are generated from these same shapes, so **fixture → API 
 - Confirm whether the target v2 backend will use Prisma + PostgreSQL (default assumption here) or another stack.
 - Whether order numbers should be sequential (`GRB-2026-0001`) vs. random.
 - Currency: single (USD) or multi-currency later (affects `currency` columns).
+- Which managed form/CRM provider will store customization requests and send owner notifications.
+- Retention, consent wording, and deletion workflow for customer contact details.

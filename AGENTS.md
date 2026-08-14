@@ -4,7 +4,7 @@ Guidance for AI agents working in this repo. Read this before making changes.
 
 ## Current state
 
-- **M1 and M2 complete.** The scaffold and Catalog & Explore experience are implemented. Lint/typecheck/test/build pass.
+- **M1, M2, M3, M5, and M6 complete.** M4A customization UI/schema work is implemented; M4B provider activation is deferred pending provider selection. Checkout uses a mock payment provider. Lint/typecheck/test/build pass.
 - Docs are the source of truth: `PRD.md` (scope/features), `TECH.md` (stack/versions), `ARCHITECTURE.md` (structure/data/API).
 - Follow `ARCHITECTURE.md` §1 (file tree) and §2 (module rules) exactly — do not invent a different layout.
 
@@ -14,14 +14,16 @@ Guidance for AI agents working in this repo. Read this before making changes.
 |---|-----------|--------|
 | M1 | Scaffold + design system | ✅ Done |
 | M2 | Catalog & Explore (home, category, listing, PDP) | ✅ Done |
-| M3 | Cart (add/remove/update, persisted state) | 🔲 Not started |
-| M4 | Checkout (address, shipping, payment mock, confirmation) | 🔲 Not started |
-| M5 | Content pages (About, Contact, FAQ, footer/policies) | 🔲 Not started |
-| M6 | Polish & launch (responsive QA, performance, deploy) | 🔲 Not started |
+| M3 | Cart (add/remove/update, persisted state) | ✅ Done |
+| M4A | Customization request UI and contract (jersey form, validation) | ✅ Done |
+| M4B | Customization provider activation (managed submission and persistence) | ⏸ Deferred |
+| M5 | Checkout (address, shipping, payment mock, confirmation) | ✅ Done |
+| M6 | Content pages (About, Contact, FAQ, footer/policies) | ✅ Done |
+| M7 | Polish & launch (responsive QA, performance, privacy/accessibility, deploy) | 🔲 Not started |
 
 ## Stack (decided in TECH.md — do not deviate)
 
-- **Next.js 16** (App Router), **static export** (`output: 'export'`). No backend, no DB, no runtime server in v1.
+- **Next.js 16** (App Router), **static export** (`output: 'export'`). No commerce backend, DB, or runtime server in v1; customization requests are the documented exception and submit to an external managed form/CRM service.
 - **TypeScript ^6.0** — do NOT install TypeScript 7.x (too new for the toolchain).
 - React 19 (use the version Next pins), **Tailwind CSS 4** (CSS-first config; no `tailwind.config.js`).
 - **Zustand 5** (cart, persisted to localStorage), **Zod 4** (validation + contract types).
@@ -48,6 +50,7 @@ Verification order before finishing work: **lint → typecheck → test → buil
 - Only `app/` reads `data/*.json` (in Server Components); components receive data as props.
 - `components/ui/` primitives must not touch stores, `data/`, or payment.
 - Interactive code (cart, checkout, forms, gallery, mobile nav) is `"use client"`; everything else stays a Server Component.
+- Customization submissions go through a provider adapter and must not be stored in localStorage.
 - `lib/schemas/*.ts` (Zod) is the single source of shared types for fixtures, forms, and API payloads.
 
 ## Conventions
@@ -57,6 +60,7 @@ Verification order before finishing work: **lint → typecheck → test → buil
 - Cart state lives only in `stores/cart.ts` (Zustand + persist). Do not add a second cart store.
 - Product data comes from `data/products.json` via `lib/api.ts`. Adding products = editing fixtures (JSON + Zod-validated).
 - The DB schema and HTTP API in ARCHITECTURE.md §4–§5 are **v2+ targets, not implemented**. Do not add a database, API routes, auth, or real payments in v1.
+- The customization provider endpoint is external infrastructure, not a new local API route or database.
 - When editing docs, update the `Last Updated` header. Version tracking is via git, not doc folders.
 
 ## Gotchas

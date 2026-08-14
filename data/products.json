@@ -154,6 +154,7 @@
       "materials": ["recycled polyester", "elastane"],
       "isFeatured": false,
       "isInStock": true,
+      "isCustomizable": true,
       "variants": [
         {
           "id": "aero-racer-jersey-medium-blue",

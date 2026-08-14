@@ -5,12 +5,12 @@ import type { Product } from '../lib/schemas/product';
 const products: Product[] = [
   {
     id: 'one', slug: 'one', name: 'Alpha Runner', categoryId: 'footwear', description: 'Light shoe', priceCents: 10000,
-    currency: 'USD', images: [], materials: ['mesh'], isFeatured: true, isInStock: true,
+    currency: 'USD', images: [], materials: ['mesh'], isFeatured: true, isInStock: true, isCustomizable: false,
     variants: [{ id: 'one-black-9', color: 'Black', size: 'US 9', sku: 'ONE-9' }],
   },
   {
     id: 'two', slug: 'two', name: 'Beta Trainer', categoryId: 'footwear', description: 'Stable shoe', priceCents: 15000,
-    currency: 'USD', images: [], materials: ['rubber'], isFeatured: false, isInStock: true,
+    currency: 'USD', images: [], materials: ['rubber'], isFeatured: false, isInStock: true, isCustomizable: false,
     variants: [{ id: 'two-white-10', color: 'White', size: 'US 10', sku: 'TWO-10' }],
   },
 ];

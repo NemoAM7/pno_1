@@ -26,6 +26,7 @@ export const OrderSchema = z.object({
   taxCents: z.number().int().nonnegative(),
   totalCents: z.number().int().nonnegative(),
   currency: z.string().length(3).default('USD'),
+  email: z.email(),
   shipping: ShippingAddressSchema,
   placedAt: z.string(),
 });

@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 export const ContactMessageSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  subject: z.string().min(1),
-  message: z.string().min(1),
+  name: z.string().trim().min(1, 'Enter your name'),
+  email: z.email('Enter a valid email address'),
+  subject: z.string().trim().min(1, 'Enter a subject'),
+  message: z.string().trim().min(10, 'Tell us a little more about how we can help'),
 });
 
 export type ContactMessage = z.infer<typeof ContactMessageSchema>;
