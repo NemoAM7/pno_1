@@ -19,7 +19,7 @@ Guidance for AI agents working in this repo. Read this before making changes.
 | M4B | Customization provider activation (managed submission and persistence) | ⏸ Deferred |
 | M5 | Checkout (address, shipping, payment mock, confirmation) | ✅ Done |
 | M6 | Content pages (About, Contact, FAQ, footer/policies) | ✅ Done |
-| M7 | Polish & launch (responsive QA, performance, privacy/accessibility, deploy) | 🔲 Not started |
+| M7 | Polish & launch (responsive QA, performance, privacy/accessibility, deploy) | 🚧 In progress |
 
 ## Stack (decided in TECH.md — do not deviate)
 

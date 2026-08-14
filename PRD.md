@@ -155,7 +155,7 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 | M4B | Customization provider activation | Managed form/CRM selection, endpoint configuration, persistence verification | Deferred |
 | M5 | Checkout | Address, shipping, payment mock, confirmation | Done |
 | M6 | Content pages | About, Contact, FAQ, footer/policies | Done |
-| M7 | Polish & launch | Responsive QA, performance, privacy/accessibility review, deploy | Not started |
+| M7 | Polish & launch | Responsive QA, performance, privacy/accessibility review, deploy | In progress |
 
 > **M4B deferral:** The customization form and request contract are implemented, but provider selection and durable lead storage are intentionally deferred. The customization flow is not production-ready until a managed provider is configured and verified.
 
