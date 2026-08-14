@@ -6,7 +6,7 @@ export const ShippingAddressSchema = z.object({
   address1: z.string().trim().min(1, 'Enter your address'),
   address2: z.string().optional(),
   city: z.string().trim().min(1, 'Enter your city'),
-  postalCode: z.string().trim().min(1, 'Enter your postal code'),
+  postalCode: z.string().trim().regex(/^\d{6}$/, 'Enter a valid 6-digit PIN code'),
   country: z.string().trim().min(2, 'Enter your country'),
 });
 

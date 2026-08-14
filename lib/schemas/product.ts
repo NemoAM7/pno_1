@@ -17,7 +17,7 @@ export const ProductSchema = z.object({
   description: z.string(),
   priceCents: z.number().int().nonnegative(),
   compareAtPriceCents: z.number().int().nonnegative().optional(),
-  currency: z.string().length(3).default('USD'),
+  currency: z.string().length(3).default('INR'),
   images: z.array(z.string()),
   materials: z.array(z.string()),
   isFeatured: z.boolean(),

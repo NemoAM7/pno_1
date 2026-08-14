@@ -55,7 +55,7 @@ Verification order before finishing work: **lint → typecheck → test → buil
 
 ## Conventions
 
-- **Money is integer cents** (`priceCents`) everywhere; format only at render via `lib/money.ts`. Never float math.
+- **Money is integer minor units (paise for INR)** (`priceCents`) everywhere; format only at render via `lib/money.ts` using the `en-IN` locale. Never float math.
 - Payment is mocked behind `PaymentProvider` in `lib/checkout/payment.ts` — nothing else touches payment concerns.
 - Cart state lives only in `stores/cart.ts` (Zustand + persist). Do not add a second cart store.
 - Product data comes from `data/products.json` via `lib/api.ts`. Adding products = editing fixtures (JSON + Zod-validated).

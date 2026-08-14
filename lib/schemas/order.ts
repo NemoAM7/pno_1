@@ -25,7 +25,7 @@ export const OrderSchema = z.object({
   shippingCents: z.number().int().nonnegative(),
   taxCents: z.number().int().nonnegative(),
   totalCents: z.number().int().nonnegative(),
-  currency: z.string().length(3).default('USD'),
+  currency: z.string().length(3).default('INR'),
   email: z.email(),
   shipping: ShippingAddressSchema,
   placedAt: z.string(),

@@ -165,7 +165,7 @@ hooks/
 - One component per file; named exports; co-located `.test.tsx`.
 
 ### 6.4 Money handling
-- Store prices in **cents (integer)** in fixtures (`priceCents`). Format with `Intl.NumberFormat` in `lib/money.ts`. Never do float math on prices.
+- Store prices as **integer minor units (paise for INR)** in fixtures (`priceCents`). Format with `Intl.NumberFormat('en-IN')` in `lib/money.ts`. Never do float math on prices.
 
 ### 6.5 Mock payment interface (future-proofing)
 - `PaymentProvider` interface: `createPaymentIntent(order) → { id, status }`, `confirmPayment(id)`.

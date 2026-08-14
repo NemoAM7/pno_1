@@ -127,7 +127,7 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 - **No user accounts / auth / order history.**
 - **No admin dashboard or inventory management.**
 - **No shipping carrier integrations** (shipping is estimated/static).
-- **No multi-language or multi-currency.**
+- **No multi-language or multi-currency.** v1 is India-first with INR pricing and Indian checkout conventions.
 - **No SEO/analytics tooling** beyond basic metadata (later iteration).
 - **No native mobile app.**
 - **No custom admin dashboard.** The business owner uses the managed form/CRM provider's dashboard and notifications for customization leads.

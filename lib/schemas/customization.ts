@@ -3,7 +3,7 @@ import { z } from 'zod';
 const CustomerFields = {
   name: z.string().trim().min(1, 'Enter your name'),
   email: z.email('Enter a valid email address'),
-  phone: z.string().trim().min(7, 'Enter a valid phone number'),
+  phone: z.string().trim().regex(/^(?:\+91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}$/, 'Enter a valid Indian phone number'),
   request: z.string().trim().min(10, 'Tell us a little more about your request'),
   consent: z.literal(true, 'Consent is required to follow up'),
 };

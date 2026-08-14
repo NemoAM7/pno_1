@@ -229,15 +229,15 @@ All fixtures live in `data/*.json` and are typed/validated by Zod schemas in `li
       "name": "Run Racer 2",
       "categoryId": "footwear",
       "description": "…",
-      "priceCents": 12900,
-      "compareAtPriceCents": 15900,
-      "currency": "USD",
+      "priceCents": 1079900,
+      "compareAtPriceCents": 1329900,
+      "currency": "INR",
       "images": ["/images/products/run-racer-2-1.jpg", "…"],
       "materials": ["…"],
       "isFeatured": true,
       "isInStock": true,
       "variants": [
-        { "id": "run-racer-2-us10-black", "color": "Black", "size": "US 10", "sku": "RR2-BLK-10" }
+         { "id": "run-racer-2-uk10-black", "color": "Black", "size": "UK 10", "sku": "RR2-BLK-10" }
       ]
     }
   ]
@@ -246,7 +246,7 @@ All fixtures live in `data/*.json` and are typed/validated by Zod schemas in `li
 
 ### 3.2 Other fixtures
 - `categories.json` — `{ id, name, slug, description }`
-- `shipping-methods.json` — `{ id, label, priceCents, etaDays }` (static, no carrier integration in v1)
+- `shipping-methods.json` — `{ id, label, priceCents, etaDays }`, with `priceCents` representing INR paise (static, no carrier integration in v1)
 - `faqs.json` — `{ question, answer }`
 
 ### 3.3 Customization request shape
@@ -258,7 +258,7 @@ Customization requests are not local fixtures. They are validated before submiss
   "variantId": "aero-racer-jersey-medium-blue",
   "name": "Ayaan Khan",
   "email": "ayaan@example.com",
-  "phone": "+44 7000 000000",
+  "phone": "+91 98765 43210",
   "request": "Add initials AK on the left chest",
   "consent": true
 }
@@ -288,7 +288,7 @@ CREATE TABLE products (
   description       text,
   price_cents       integer NOT NULL,       -- CHECK (price_cents >= 0)
   compare_at_cents  integer,
-  currency          char(3) NOT NULL DEFAULT 'USD',
+   currency          char(3) NOT NULL DEFAULT 'INR',
   is_featured       boolean NOT NULL DEFAULT false,
   is_in_stock       boolean NOT NULL DEFAULT true,
   created_at        timestamptz NOT NULL DEFAULT now(),
@@ -329,7 +329,7 @@ CREATE TABLE orders (
   shipping_cents  integer NOT NULL,
   tax_cents       integer NOT NULL DEFAULT 0,
   total_cents     integer NOT NULL,
-  currency        char(3) NOT NULL DEFAULT 'USD',
+  currency        char(3) NOT NULL DEFAULT 'INR',
   shipping        jsonb NOT NULL,          -- name, address, city, zip, country, method
   placed_at       timestamptz NOT NULL DEFAULT now()
 );
@@ -395,7 +395,7 @@ Base: `/api`. Content type: `application/json`. Errors: `{ "error": { "code": st
 ```json
 {
   "data": [ { "id": "run-racer-2", "slug": "run-racer-2", "name": "Run Racer 2",
-              "categoryId": "footwear", "priceCents": 12900, "currency": "USD",
+               "categoryId": "footwear", "priceCents": 1079900, "currency": "INR",
               "isInStock": true, "images": ["/images/products/run-racer-2-1.jpg"] } ],
   "meta": { "page": 1, "pageSize": 24, "total": 42 }
 }
@@ -411,7 +411,7 @@ Request:
   "shipping": {
     "firstName": "Ayaan", "lastName": "Khan",
     "address1": "1 Main St", "address2": "", "city": "London",
-    "postalCode": "SW1A 1AA", "country": "GB"
+    "postalCode": "400001", "country": "IN"
   },
   "shippingMethodId": "standard",
   "payment": { "token": "mock_123" }     // never store raw card data
@@ -428,7 +428,7 @@ Response `201`:
     "shippingCents": 500,
     "taxCents": 0,
     "totalCents": 13400,
-    "currency": "USD",
+    "currency": "INR",
     "placedAt": "2026-08-08T12:00:00Z"
   }
 }
@@ -493,6 +493,6 @@ The DB tables in §4 are generated from these same shapes, so **fixture → API 
 ## 8. Open Questions
 - Confirm whether the target v2 backend will use Prisma + PostgreSQL (default assumption here) or another stack.
 - Whether order numbers should be sequential (`GRB-2026-0001`) vs. random.
-- Currency: single (USD) or multi-currency later (affects `currency` columns).
+- Currency: single INR in v1; multi-currency later (affects `currency` columns).
 - Which managed form/CRM provider will store customization requests and send owner notifications.
 - Retention, consent wording, and deletion workflow for customer contact details.

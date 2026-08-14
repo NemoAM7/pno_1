@@ -3,13 +3,13 @@
     {
       "id": "standard",
       "label": "Standard Shipping",
-      "priceCents": 500,
+      "priceCents": 9900,
       "etaDays": "5-7 business days"
     },
     {
       "id": "express",
       "label": "Express Shipping",
-      "priceCents": 1500,
+      "priceCents": 19900,
       "etaDays": "2-3 business days"
     }
   ]

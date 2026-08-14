@@ -4,7 +4,7 @@ import { CustomizationRequestSchema } from '../lib/schemas/customization';
 const customerFields = {
   name: 'Ayaan Khan',
   email: 'ayaan@example.com',
-  phone: '+44 7000 000000',
+  phone: '+91 98765 43210',
   request: 'Add initials AK on the left chest',
   consent: true as const,
 };

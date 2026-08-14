@@ -3,10 +3,10 @@ import { getCartItemCount, getCartSubtotalCents, useCartStore, type CartLine } f
 
 const shoe: CartLine = {
   productId: 'run-racer-2',
-  variantId: 'run-racer-2-us10-black',
+  variantId: 'run-racer-2-uk10-black',
   name: 'Run Racer 2',
   color: 'Black',
-  size: 'US 10',
+  size: 'UK 10',
   unitCents: 12900,
   quantity: 1,
 };

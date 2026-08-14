@@ -1,5 +1,5 @@
-export function formatPrice(cents: number, currency = 'USD'): string {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(cents / 100);
+export function formatPrice(cents: number, currency = 'INR'): string {
+  return new Intl.NumberFormat('en-IN', { style: 'currency', currency }).format(cents / 100);
 }
 
 export function addCents(...values: number[]): number {

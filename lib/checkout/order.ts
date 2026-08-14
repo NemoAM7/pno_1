@@ -14,7 +14,7 @@ export function buildMockOrder(request: CheckoutRequest, lines: OrderLine[], shi
     shippingCents,
     taxCents: 0,
     totalCents: subtotalCents + shippingCents,
-    currency: 'USD',
+    currency: 'INR',
     email: request.email,
     shipping: request.shipping,
     placedAt: now.toISOString(),
