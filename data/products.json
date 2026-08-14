@@ -1,0 +1,173 @@
+{
+  "products": [
+    {
+      "id": "run-racer-2",
+      "slug": "run-racer-2",
+      "name": "Run Racer 2",
+      "categoryId": "footwear",
+      "description": "Lightweight performance running shoe",
+      "priceCents": 12900,
+      "currency": "USD",
+      "images": ["/images/products/run-racer-2-1.jpg"],
+      "materials": ["mesh", "rubber"],
+      "isFeatured": true,
+      "isInStock": true,
+      "variants": [
+        {
+          "id": "run-racer-2-us10-black",
+          "color": "Black",
+          "size": "US 10",
+          "sku": "RR2-BLK-10"
+        },
+        {
+          "id": "run-racer-2-us9-black",
+          "color": "Black",
+          "size": "US 9",
+          "sku": "RR2-BLK-09"
+        },
+        {
+          "id": "run-racer-2-us10-white",
+          "color": "White",
+          "size": "US 10",
+          "sku": "RR2-WHT-10"
+        }
+      ]
+    },
+    {
+      "id": "trail-form-jacket",
+      "slug": "trail-form-jacket",
+      "name": "Trail Form Jacket",
+      "categoryId": "apparel",
+      "description": "Lightweight weather layer for changing conditions",
+      "priceCents": 18500,
+      "compareAtPriceCents": 22000,
+      "currency": "USD",
+      "images": ["/images/products/trail-form-jacket-1.jpg"],
+      "materials": ["recycled nylon", "mesh lining"],
+      "isFeatured": true,
+      "isInStock": true,
+      "variants": [
+        {
+          "id": "trail-form-jacket-medium-olive",
+          "color": "Olive",
+          "size": "M",
+          "sku": "TFJ-OLV-M"
+        },
+        {
+          "id": "trail-form-jacket-large-black",
+          "color": "Black",
+          "size": "L",
+          "sku": "TFJ-BLK-L"
+        }
+      ]
+    },
+    {
+      "id": "everyday-pace-tee",
+      "slug": "everyday-pace-tee",
+      "name": "Everyday Pace Tee",
+      "categoryId": "apparel",
+      "description": "Breathable training tee with a relaxed everyday fit",
+      "priceCents": 5500,
+      "currency": "USD",
+      "images": ["/images/products/everyday-pace-tee-1.jpg"],
+      "materials": ["organic cotton", "recycled polyester"],
+      "isFeatured": false,
+      "isInStock": true,
+      "variants": [
+        {
+          "id": "everyday-pace-tee-medium-sand",
+          "color": "Sand",
+          "size": "M",
+          "sku": "EPT-SND-M"
+        },
+        {
+          "id": "everyday-pace-tee-large-navy",
+          "color": "Navy",
+          "size": "L",
+          "sku": "EPT-NVY-L"
+        }
+      ]
+    },
+    {
+      "id": "pace-knit-cap",
+      "slug": "pace-knit-cap",
+      "name": "Pace Knit Cap",
+      "categoryId": "accessories",
+      "description": "Soft knit cap for early starts and cool finishes",
+      "priceCents": 3200,
+      "currency": "USD",
+      "images": ["/images/products/pace-knit-cap-1.jpg"],
+      "materials": ["merino wool", "recycled nylon"],
+      "isFeatured": true,
+      "isInStock": true,
+      "variants": [
+        {
+          "id": "pace-knit-cap-one-size-rust",
+          "color": "Rust",
+          "size": "One size",
+          "sku": "PKC-RST-OS"
+        },
+        {
+          "id": "pace-knit-cap-one-size-black",
+          "color": "Black",
+          "size": "One size",
+          "sku": "PKC-BLK-OS"
+        }
+      ]
+    },
+    {
+      "id": "carry-light-sling",
+      "slug": "carry-light-sling",
+      "name": "Carry Light Sling",
+      "categoryId": "accessories",
+      "description": "Compact crossbody carry for keys, cards, and a phone",
+      "priceCents": 6800,
+      "currency": "USD",
+      "images": ["/images/products/carry-light-sling-1.jpg"],
+      "materials": ["ripstop nylon", "aluminium hardware"],
+      "isFeatured": false,
+      "isInStock": true,
+      "variants": [
+        {
+          "id": "carry-light-sling-one-size-black",
+          "color": "Black",
+          "size": "One size",
+          "sku": "CLS-BLK-OS"
+        },
+        {
+          "id": "carry-light-sling-one-size-orange",
+          "color": "Orange",
+          "size": "One size",
+          "sku": "CLS-ORG-OS"
+        }
+      ]
+    },
+    {
+      "id": "aero-racer-jersey",
+      "slug": "aero-racer-jersey",
+      "name": "Aero Racer Jersey",
+      "categoryId": "cycling",
+      "description": "Close-fitting cycling jersey for fast, focused rides",
+      "priceCents": 11500,
+      "currency": "USD",
+      "images": ["/images/products/aero-racer-jersey-1.jpg"],
+      "materials": ["recycled polyester", "elastane"],
+      "isFeatured": false,
+      "isInStock": true,
+      "variants": [
+        {
+          "id": "aero-racer-jersey-medium-blue",
+          "color": "Blue",
+          "size": "M",
+          "sku": "ARJ-BLU-M"
+        },
+        {
+          "id": "aero-racer-jersey-large-black",
+          "color": "Black",
+          "size": "L",
+          "sku": "ARJ-BLK-L"
+        }
+      ]
+    }
+  ]
+}

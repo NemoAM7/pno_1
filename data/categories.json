@@ -1,0 +1,28 @@
+{
+  "categories": [
+    {
+      "id": "footwear",
+      "name": "Footwear",
+      "slug": "footwear",
+      "description": "Running shoes and sneakers"
+    },
+    {
+      "id": "apparel",
+      "name": "Apparel",
+      "slug": "apparel",
+      "description": "Technical layers and everyday essentials"
+    },
+    {
+      "id": "accessories",
+      "name": "Accessories",
+      "slug": "accessories",
+      "description": "Small tools for bigger efforts"
+    },
+    {
+      "id": "cycling",
+      "name": "Cycling",
+      "slug": "cycling",
+      "description": "Road-ready layers and riding essentials"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "shippingMethods": [
+    {
+      "id": "standard",
+      "label": "Standard Shipping",
+      "priceCents": 500,
+      "etaDays": "5-7 business days"
+    }
+  ]
+}
