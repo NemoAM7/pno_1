@@ -54,6 +54,10 @@ All versions below were verified as the current **stable** release on npm as of 
 - The provider must support HTTPS, spam protection/rate limiting, owner notifications, and export/deletion of submissions.
 - If the selected provider later requires a secret server-side credential, add a serverless proxy as a deliberate hosting change rather than putting the secret in the browser.
 
+### 2.5 Typography
+- Body copy uses `DM Sans` and headings use `Space Grotesk`, loaded through `next/font` and self-hosted by Next.js.
+- Typography is applied globally through `app/layout.tsx` and `app/globals.css` rather than relying on platform-specific Arial/Helvetica fallbacks.
+
 ---
 
 ## 3. Language & Compatibility Notes
