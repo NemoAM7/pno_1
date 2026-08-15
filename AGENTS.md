@@ -4,7 +4,7 @@ Guidance for AI agents working in this repo. Read this before making changes.
 
 ## Current state
 
-- **M1, M2, M3, M5, and M6 complete.** M4A customization UI/schema work is implemented; M4B provider activation is deferred pending provider selection. Checkout uses a mock payment provider. Lint/typecheck/test/build pass.
+- **M1, M2, M3, M5, and M6 complete.** M4A customization UI/schema work is implemented; M4B Web3Forms activation is deferred pending access-key configuration. Checkout uses a mock payment provider. Lint/typecheck/test/build pass.
 - Docs are the source of truth: `PRD.md` (scope/features), `TECH.md` (stack/versions), `ARCHITECTURE.md` (structure/data/API).
 - Follow `ARCHITECTURE.md` §1 (file tree) and §2 (module rules) exactly — do not invent a different layout.
 

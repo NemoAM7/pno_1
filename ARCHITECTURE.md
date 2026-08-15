@@ -438,8 +438,8 @@ Response `201`:
 Request: `{ "name", "email", "subject", "message" }` → Response `201`: `{ "data": { "id": "…", "status": "new" } }`
 
 ### 5.3 v1 external customization submission
-- Provider activation is deferred until a managed form/CRM service is selected and configured. The current form/adapter contract is development-only until then.
-- The client sends the validated customization request to `NEXT_PUBLIC_CUSTOMIZATION_ENDPOINT` over HTTPS.
+- Provider activation is deferred until the Web3Forms access key and owner notification settings are configured. The current form/adapter contract is development-only until then.
+- The selected provider is Web3Forms. The client sends the validated customization request to `https://api.web3forms.com/submit` over HTTPS with `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`.
 - The provider is responsible for persistence, spam controls, owner notifications, and owner access.
 - The UI only treats an accepted provider response as success; it must show a retryable error when submission fails.
 - The provider's exact payload adapter belongs in `lib/customization/client.ts` so switching providers does not change the form component.
