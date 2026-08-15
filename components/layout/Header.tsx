@@ -9,6 +9,7 @@ import { MobileNav } from './MobileNav';
 export function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const itemCount = useCartStore((state) => getCartItemCount(state.lines));
+  const hasHydrated = useCartStore((state) => state.hasHydrated);
 
   return (
     <>
@@ -23,7 +24,7 @@ export function Header() {
           <Link href="/about" className="transition-colors hover:text-moss">About</Link>
           <Link href="/contact" className="transition-colors hover:text-moss">Contact</Link>
         </nav>
-        <div className="flex items-center gap-2"><MobileNav /><button type="button" onClick={() => setDrawerOpen(true)} className="rounded-full border border-ink px-4 py-2 text-sm font-bold transition-colors hover:bg-ink hover:text-paper">Cart{itemCount > 0 ? ` (${itemCount})` : ''}</button></div>
+        <div className="flex items-center gap-2"><MobileNav /><button type="button" onClick={() => setDrawerOpen(true)} className="rounded-full border border-ink px-4 py-2 text-sm font-bold transition-colors hover:bg-ink hover:text-paper">Cart{hasHydrated && itemCount > 0 ? ` (${itemCount})` : ''}</button></div>
       </div>
       </header>
       <CartDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />

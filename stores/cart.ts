@@ -15,10 +15,12 @@ export interface CartLine {
 
 export interface CartState {
   lines: CartLine[];
+  hasHydrated: boolean;
   addItem: (line: CartLine) => void;
   removeItem: (variantId: string) => void;
   updateQuantity: (variantId: string, quantity: number) => void;
   clear: () => void;
+  setHasHydrated: (hasHydrated: boolean) => void;
 }
 
 export function getCartItemCount(lines: CartLine[]): number {
@@ -37,6 +39,7 @@ export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       lines: [],
+      hasHydrated: false,
       addItem: (line) =>
         set((state) => {
           const quantity = normalizeQuantity(line.quantity);
@@ -60,7 +63,14 @@ export const useCartStore = create<CartState>()(
             .filter((l) => l.quantity > 0),
         })),
       clear: () => set({ lines: [] }),
+      setHasHydrated: (hasHydrated) => set({ hasHydrated }),
     }),
-    { name: CART_STORAGE_KEY },
+    {
+      name: CART_STORAGE_KEY,
+      partialize: (state) => ({ lines: state.lines }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
+    },
   ),
 );

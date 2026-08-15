@@ -15,9 +15,14 @@ import { PaymentSection } from './PaymentSection';
 export function CheckoutPageContent({ shippingMethods }: { shippingMethods: ShippingMethod[] }) {
   const router = useRouter();
   const lines = useCartStore((state) => state.lines);
+  const hasHydrated = useCartStore((state) => state.hasHydrated);
   const [shippingData, setShippingData] = useState<{ email: string; shipping: ShippingAddress; shippingMethodId: string }>();
   const [paymentError, setPaymentError] = useState('');
   const selectedShipping = shippingMethods.find((method) => method.id === shippingData?.shippingMethodId) ?? shippingMethods[0];
+
+  if (!hasHydrated) {
+    return <div className="mx-auto max-w-2xl px-6 py-24 text-center lg:px-10"><p className="text-lg text-ink/60">Loading cart...</p></div>;
+  }
 
   if (lines.length === 0) {
     return <div className="mx-auto max-w-2xl px-6 py-24 text-center lg:px-10"><p className="text-2xl font-black">Your cart is empty.</p><Link href="/explore" className="mt-6 inline-flex rounded-full bg-ink px-6 py-3 text-sm font-bold text-paper">Return to Explore</Link></div>;

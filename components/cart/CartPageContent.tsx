@@ -8,10 +8,15 @@ import { CartLineItem } from './CartLineItem';
 
 export function CartPageContent({ shippingMethods }: { shippingMethods: ShippingMethod[] }) {
   const lines = useCartStore((state) => state.lines);
+  const hasHydrated = useCartStore((state) => state.hasHydrated);
   const subtotalCents = getCartSubtotalCents(lines);
   const shipping = shippingMethods[0];
   const shippingCents = lines.length > 0 ? (shipping?.priceCents ?? 0) : 0;
   const totalCents = subtotalCents + shippingCents;
+
+  if (!hasHydrated) {
+    return <div className="mx-auto max-w-3xl px-6 py-24 text-center lg:px-10"><p className="text-sm font-black uppercase tracking-[0.2em] text-moss">Your cart</p><p className="mt-5 text-lg text-ink/60">Loading cart...</p></div>;
+  }
 
   if (lines.length === 0) {
     return (
