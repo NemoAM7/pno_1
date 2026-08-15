@@ -440,7 +440,7 @@ Response `201`:
 Request: `{ "name", "email", "subject", "message" }` → Response `201`: `{ "data": { "id": "…", "status": "new" } }`
 
 ### 5.3 v1 external customization submission
-- Provider activation is deferred until the Web3Forms access key and owner notification settings are configured. The current form/adapter contract is development-only until then.
+- Web3Forms activation is complete for customization and contact submissions; access keys and owner notification settings are deployment configuration.
 - The selected provider is Web3Forms. The client sends validated customization requests to `https://api.web3forms.com/submit` over HTTPS with `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`; contact uses `NEXT_PUBLIC_CONTACT_WEB3FORMS_ACCESS_KEY`.
 - The provider is responsible for persistence, spam controls, owner notifications, and owner access.
 - The UI only treats an accepted provider response as success; it must show a retryable error when submission fails.

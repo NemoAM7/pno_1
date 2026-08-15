@@ -4,7 +4,7 @@ Guidance for AI agents working in this repo. Read this before making changes.
 
 ## Current state
 
-- **M1, M2, M3, M5, and M6 complete.** M4A customization UI/schema work is implemented; M4B Web3Forms activation is deferred pending access-key configuration. Checkout uses a mock payment provider. Lint/typecheck/test/build pass.
+- **M1, M2, M3, M4A, M4B, M5, and M6 complete.** Web3Forms is active for customization and contact submissions. M7 responsive/accessibility QA is complete; performance, metadata, and final production content are deferred for client review. Checkout uses a mock payment provider. Lint/typecheck/test/build pass.
 - Docs are the source of truth: `PRD.md` (scope/features), `TECH.md` (stack/versions), `ARCHITECTURE.md` (structure/data/API).
 - Follow `ARCHITECTURE.md` §1 (file tree) and §2 (module rules) exactly — do not invent a different layout.
 
@@ -16,7 +16,7 @@ Guidance for AI agents working in this repo. Read this before making changes.
 | M2 | Catalog & Explore (home, category, listing, PDP) | ✅ Done |
 | M3 | Cart (add/remove/update, persisted state) | ✅ Done |
 | M4A | Customization request UI and contract (jersey form, validation) | ✅ Done |
-| M4B | Customization provider activation (managed submission and persistence) | ⏸ Deferred |
+| M4B | Customization provider activation (managed submission and persistence) | ✅ Done |
 | M5 | Checkout (address, shipping, payment mock, confirmation) | ✅ Done |
 | M6 | Content pages (About, Contact, FAQ, footer/policies) | ✅ Done |
 | M7 | Polish & launch (responsive QA, performance, privacy/accessibility, deploy) | 🚧 In progress |

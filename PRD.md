@@ -152,12 +152,12 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 | M2 | Catalog & Explore | Home, category, listing, PDP | Done |
 | M3 | Cart | Add/remove/update, persisted state | Done |
 | M4A | Customization request UI and contract | Jersey CTA, existing/new product form, validation, success/error UI | Done |
-| M4B | Customization provider activation | Managed form/CRM selection, endpoint configuration, persistence verification | Deferred |
+| M4B | Customization provider activation | Managed form/CRM selection, endpoint configuration, persistence verification | Done |
 | M5 | Checkout | Address, shipping, payment mock, confirmation | Done |
 | M6 | Content pages | About, Contact, FAQ, footer/policies | Done |
 | M7 | Polish & launch | Responsive QA, performance, privacy/accessibility review, deploy | In progress |
 
-> **M4B deferral:** Web3Forms has been selected, but the access key and owner notification configuration are still pending. The customization flow is not production-ready until the provider is configured and verified.
+> **M7 deferrals:** Performance, metadata/SEO, and final production content updates are intentionally deferred until after the client review. Web3Forms activation has been completed.
 
 ---
 

@@ -49,7 +49,7 @@ All versions below were verified as the current **stable** release on npm as of 
 ### 2.4 Customization request persistence
 - The storefront remains statically exportable; it does not add a database or Next.js runtime API route for this feature.
 - A client adapter submits a Zod-validated request to a configured managed form/CRM endpoint.
-- Provider activation is deferred. Until `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` and owner notification settings are configured and verified, the customization flow must be treated as development-only and not presented as a production lead channel.
+- Web3Forms activation is complete for customization and contact submissions; both access keys and owner notification settings must remain configured in each deployment environment.
 - The endpoint configuration is supplied through `NEXT_PUBLIC_CUSTOMIZATION_ENDPOINT`; provider credentials must never be embedded in the client bundle.
 - The selected provider is Web3Forms. It receives requests through `https://api.web3forms.com/submit`, provides email delivery, and uses separate public access keys for customization (`NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`) and contact (`NEXT_PUBLIC_CONTACT_WEB3FORMS_ACCESS_KEY`).
 - The provider must support HTTPS, spam protection/rate limiting, owner notifications, and export/deletion of submissions.

@@ -15,7 +15,7 @@ export function AddToCartButton({ product, variant }: { product: Product; varian
   }
 
   return (
-    <button type="button" disabled={!product.isInStock} onClick={handleAdd} className="w-full rounded-full bg-lime px-6 py-4 text-sm font-black uppercase tracking-[0.14em] text-ink transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50">
+    <button type="button" disabled={!product.isInStock} onClick={handleAdd} aria-live="polite" className={`w-full rounded-full px-6 py-4 text-sm font-black uppercase tracking-[0.14em] transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${added ? 'bg-moss text-paper' : 'bg-lime text-ink'}`}>
       {added ? 'Added to cart' : product.isInStock ? 'Add to cart' : 'Sold out'}
     </button>
   );
