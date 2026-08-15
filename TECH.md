@@ -51,7 +51,7 @@ All versions below were verified as the current **stable** release on npm as of 
 - A client adapter submits a Zod-validated request to a configured managed form/CRM endpoint.
 - Provider activation is deferred. Until `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` and owner notification settings are configured and verified, the customization flow must be treated as development-only and not presented as a production lead channel.
 - The endpoint configuration is supplied through `NEXT_PUBLIC_CUSTOMIZATION_ENDPOINT`; provider credentials must never be embedded in the client bundle.
-- The selected provider is Web3Forms. It receives the request through `https://api.web3forms.com/submit`, provides email delivery, and must be configured with its public access key.
+- The selected provider is Web3Forms. It receives requests through `https://api.web3forms.com/submit`, provides email delivery, and uses separate public access keys for customization (`NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`) and contact (`NEXT_PUBLIC_CONTACT_WEB3FORMS_ACCESS_KEY`).
 - The provider must support HTTPS, spam protection/rate limiting, owner notifications, and export/deletion of submissions.
 - If the selected provider later requires a secret server-side credential, add a serverless proxy as a deliberate hosting change rather than putting the secret in the browser.
 
@@ -179,7 +179,7 @@ hooks/
 
 ### 6.6 Accessible forms
 - Native `<form>` + real labels, `aria-invalid` on errors, client-side validation before submit.
-- Contact form is submit-only (no server) — simulate success state in v1.
+- Contact and customization forms submit through the configured Web3Forms endpoint; success/error states are handled client-side.
 
 ### 6.7 Error boundaries & states
 - Each client island gets loading/skeleton and empty states (empty cart, no search results, unavailable variant).

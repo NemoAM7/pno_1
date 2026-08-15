@@ -34,6 +34,6 @@ describe('submitCustomizationRequest', () => {
     vi.stubEnv('NEXT_PUBLIC_CUSTOMIZATION_ENDPOINT', 'https://api.web3forms.com/submit');
     vi.stubEnv('NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY', 'test-access-key');
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false }));
-    await expect(submitCustomizationRequest(request)).rejects.toThrow('Customization request could not be submitted.');
+    await expect(submitCustomizationRequest(request)).rejects.toThrow('The form could not be submitted.');
   });
 });

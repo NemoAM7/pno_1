@@ -154,6 +154,8 @@ grabin/
 │       └── payment.ts           # PaymentProvider + MockPaymentProvider
 │   └── customization/
 │       └── client.ts             # managed form/CRM submission adapter
+│   └── web3forms/
+│       └── client.ts             # shared Web3Forms transport
 │   └── schemas/
 │       └── newsletter.ts          # newsletter signup contract
 │
@@ -439,7 +441,7 @@ Request: `{ "name", "email", "subject", "message" }` → Response `201`: `{ "dat
 
 ### 5.3 v1 external customization submission
 - Provider activation is deferred until the Web3Forms access key and owner notification settings are configured. The current form/adapter contract is development-only until then.
-- The selected provider is Web3Forms. The client sends the validated customization request to `https://api.web3forms.com/submit` over HTTPS with `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`.
+- The selected provider is Web3Forms. The client sends validated customization requests to `https://api.web3forms.com/submit` over HTTPS with `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`; contact uses `NEXT_PUBLIC_CONTACT_WEB3FORMS_ACCESS_KEY`.
 - The provider is responsible for persistence, spam controls, owner notifications, and owner access.
 - The UI only treats an accepted provider response as success; it must show a retryable error when submission fails.
 - The provider's exact payload adapter belongs in `lib/customization/client.ts` so switching providers does not change the form component.
@@ -484,7 +486,7 @@ The DB tables in §4 are generated from these same shapes, so **fixture → API 
 | Cart | Zustand + localStorage | Server cart / account cart | Store API (`addItem`/`removeItem`/`updateQuantity`) |
 | Payment | `MockPaymentProvider` | `StripeProvider` | `PaymentProvider` interface |
 | Checkout | client-only, mock | `POST /api/checkout` | `CheckoutRequest` schema |
-| Contact | simulated success | `POST /api/contact` | `ContactMessage` schema |
+| Contact | Web3Forms submission | Web3Forms endpoint | `ContactMessage` schema |
 | Customization | managed form/CRM submission | first-party lead endpoint + database | `CustomizationRequest` schema |
 | Hosting | static export (CDN) | Node runtime (Vercel etc.) | App Router structure |
 
