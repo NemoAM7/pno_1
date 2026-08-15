@@ -1,6 +1,8 @@
 ﻿import { CatalogExplorer } from '@/components/product/CatalogExplorer';
 import { getCategories, getProducts } from '@/lib/api';
 
+export const metadata = { title: 'Explore the collection', description: 'Shop Grabin footwear, apparel, cycling gear, and accessories.' };
+
 export default function Page() {
   const products = getProducts();
   const categories = getCategories();

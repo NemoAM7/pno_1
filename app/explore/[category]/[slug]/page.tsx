@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { ProductGallery } from '@/components/product/ProductGallery';
 import { ProductPurchase } from '@/components/product/ProductPurchase';
 import { getProducts } from '@/lib/api';
@@ -6,6 +7,13 @@ import { formatPrice } from '@/lib/money';
 
 export function generateStaticParams() {
   return getProducts().map((p) => ({ category: p.categoryId, slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ category: string; slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const product = getProducts().find((item) => item.slug === slug);
+  if (!product) return { title: 'Product not found' };
+  return { title: product.name, description: product.description, openGraph: { title: product.name, description: product.description, type: 'website', images: product.images.map((url) => ({ url, alt: product.name })) } };
 }
 
 export default async function Page({

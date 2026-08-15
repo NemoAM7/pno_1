@@ -18,8 +18,14 @@ const headingFont = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'Grabin',
-  description: 'Sports ecommerce storefront',
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : undefined,
+  title: { default: 'Grabin | Move with intent', template: '%s | Grabin' },
+  description: 'Performance essentials and considered gear for the everyday athlete.',
+  applicationName: 'Grabin',
+  keywords: ['sportswear', 'running gear', 'cycling apparel', 'athletic essentials', 'Grabin'],
+  openGraph: { type: 'website', siteName: 'Grabin', title: 'Grabin | Move with intent', description: 'Performance essentials and considered gear for the everyday athlete.' },
+  twitter: { card: 'summary_large_image', title: 'Grabin | Move with intent', description: 'Performance essentials and considered gear for the everyday athlete.' },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

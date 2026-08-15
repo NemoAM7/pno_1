@@ -2,6 +2,8 @@
 import { ProductCard } from '@/components/product/ProductCard';
 import { getCategories, getProducts } from '@/lib/api';
 
+export const metadata = { title: 'Sportswear and gear for the long way', description: 'Explore Grabin footwear, apparel, cycling gear, and accessories built for everyday movement.' };
+
 export default function Page() {
   const products = getProducts();
   const categories = getCategories();

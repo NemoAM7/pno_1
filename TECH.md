@@ -59,6 +59,11 @@ All versions below were verified as the current **stable** release on npm as of 
 - Body copy uses `DM Sans` and headings use `Space Grotesk`, loaded through `next/font` and self-hosted by Next.js.
 - Typography is applied globally through `app/layout.tsx` and `app/globals.css` rather than relying on platform-specific Arial/Helvetica fallbacks.
 
+### 2.6 SEO and metadata
+- Global metadata, title templates, Open Graph defaults, and Twitter card defaults live in `app/layout.tsx`.
+- Route-specific metadata lives beside each page, with product and category metadata generated from validated fixtures.
+- `app/robots.ts` and `app/sitemap.ts` generate static SEO files from `NEXT_PUBLIC_SITE_URL` and the catalog.
+
 ---
 
 ## 3. Language & Compatibility Notes

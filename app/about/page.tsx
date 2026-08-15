@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+export const metadata = { title: 'About Grabin', description: 'Learn about Grabin and our point of view on useful, considered sports gear.' };
+
 export default function Page() {
   return (
     <div className="mx-auto max-w-7xl px-6 pb-20 pt-16 lg:px-10">

@@ -4,7 +4,7 @@ Guidance for AI agents working in this repo. Read this before making changes.
 
 ## Current state
 
-- **M1, M2, M3, M4A, M4B, M5, and M6 complete.** Web3Forms is active for customization and contact submissions. M7 responsive/accessibility QA is complete; performance, metadata, and final production content are deferred for client review. Checkout uses a mock payment provider. Lint/typecheck/test/build pass.
+- **M1, M2, M3, M4A, M4B, M5, and M6 complete.** Web3Forms is active for customization and contact submissions. M7 responsive/accessibility QA and the initial metadata/SEO pass are complete; performance and final production content are deferred for client review. Checkout uses a mock payment provider. Lint/typecheck/test/build pass.
 - Docs are the source of truth: `PRD.md` (scope/features), `TECH.md` (stack/versions), `ARCHITECTURE.md` (structure/data/API).
 - Follow `ARCHITECTURE.md` §1 (file tree) and §2 (module rules) exactly — do not invent a different layout.
 

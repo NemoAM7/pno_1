@@ -1,9 +1,16 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { ProductCard } from '@/components/product/ProductCard';
 import { getCategories, getProductsByCategory } from '@/lib/api';
 
 export function generateStaticParams() {
   return getCategories().map((cat) => ({ category: cat.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+  const { category } = await params;
+  const categoryData = getCategories().find((item) => item.slug === category);
+  return { title: categoryData ? `${categoryData.name} collection` : 'Category', description: categoryData?.description ?? 'Explore the Grabin collection.' };
 }
 
 export default async function Page({

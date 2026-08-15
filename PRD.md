@@ -157,7 +157,7 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 | M6 | Content pages | About, Contact, FAQ, footer/policies | Done |
 | M7 | Polish & launch | Responsive QA, performance, privacy/accessibility review, deploy | In progress |
 
-> **M7 deferrals:** Performance, metadata/SEO, and final production content updates are intentionally deferred until after the client review. Web3Forms activation has been completed.
+> **M7 deferrals:** Performance optimization and final production content updates are intentionally deferred until after the client review. Web3Forms activation and the initial metadata/SEO pass are complete.
 
 ---
 
