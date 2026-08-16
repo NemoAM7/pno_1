@@ -21,7 +21,7 @@ export function CheckoutPageContent({ shippingMethods }: { shippingMethods: Ship
   const selectedShipping = shippingMethods.find((method) => method.id === shippingData?.shippingMethodId) ?? shippingMethods[0];
 
   if (!hasHydrated) {
-    return <div className="mx-auto max-w-2xl px-6 py-24 text-center lg:px-10"><p className="text-lg text-ink/60">Loading cart...</p></div>;
+    return <div className="mx-auto max-w-2xl px-6 py-24 text-center lg:px-10"><p className="text-lg text-ink/70">Loading cart...</p></div>;
   }
 
   if (lines.length === 0) {
@@ -41,5 +41,5 @@ export function CheckoutPageContent({ shippingMethods }: { shippingMethods: Ship
     router.push('/checkout/success');
   }
 
-  return <div className="mx-auto max-w-7xl px-6 pb-20 pt-16 lg:px-10"><p className="text-sm font-black uppercase tracking-[0.2em] text-moss">Checkout / {shippingData ? '02' : '01'}</p><h1 className="mt-5 text-6xl font-black leading-[0.85] tracking-[-0.08em]">{shippingData ? 'Secure your order.' : 'Where should we send it?'}</h1><p className="mt-6 text-lg text-ink/60">Guest checkout. No account required.</p><div className="mt-12 grid gap-12 lg:grid-cols-[1fr_24rem]">{shippingData && selectedShipping ? <section className="rounded-[2rem] border border-line bg-white/35 p-6 sm:p-10"><h2 className="mb-6 text-2xl font-black tracking-[-0.05em]">Payment</h2><PaymentSection onPay={handlePayment} />{paymentError && <p className="mt-4 text-sm text-red-700">{paymentError}</p>}</section> : <section className="rounded-[2rem] border border-line bg-white/35 p-6 sm:p-10"><CheckoutForm shippingMethods={shippingMethods} onContinue={setShippingData} /></section>}{selectedShipping ? <OrderSummary lines={lines} shippingMethod={selectedShipping} /> : null}</div></div>;
+  return <div className="mx-auto max-w-7xl px-6 pb-20 pt-16 lg:px-10"><p className="text-sm font-black uppercase tracking-[0.2em] text-moss">Checkout / {shippingData ? '02' : '01'}</p><h1 className="mt-5 text-6xl font-black leading-[0.85] tracking-[-0.08em]">{shippingData ? 'Secure your order.' : 'Where should we send it?'}</h1><p className="mt-6 text-lg text-ink/70">Guest checkout. No account required.</p><div className="mt-12 grid gap-12 lg:grid-cols-[1fr_24rem]">{shippingData && selectedShipping ? <section className="rounded-[2rem] border border-line bg-white/35 p-6 sm:p-10"><h2 className="mb-6 text-2xl font-black tracking-[-0.05em]">Payment</h2><PaymentSection onPay={handlePayment} />{paymentError && <p className="mt-4 text-sm text-red-700">{paymentError}</p>}</section> : <section className="rounded-[2rem] border border-line bg-white/35 p-6 sm:p-10"><CheckoutForm shippingMethods={shippingMethods} onContinue={setShippingData} /></section>}{selectedShipping ? <OrderSummary lines={lines} shippingMethod={selectedShipping} /> : null}</div></div>;
 }

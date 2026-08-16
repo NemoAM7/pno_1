@@ -25,8 +25,8 @@ export function CatalogExplorer({ products, categories }: { products: Product[];
         <select value={filters.color ?? ''} onChange={(event) => updateFilter('color', event.target.value)} className="rounded-xl border border-line bg-paper px-4 py-3 text-sm outline-none"><option value="">All colors</option>{options.colors.map((color) => <option key={color}>{color}</option>)}</select>
         <select value={filters.sort ?? ''} onChange={(event) => updateFilter('sort', event.target.value)} className="rounded-xl border border-line bg-paper px-4 py-3 text-sm outline-none"><option value="">Featured</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="name">Name</option></select>
       </div>
-      <div className="mb-6 mt-12 flex items-center justify-between"><p className="text-sm text-ink/55">{visibleProducts.length} {visibleProducts.length === 1 ? 'piece' : 'pieces'}</p></div>
-      {visibleProducts.length > 0 ? <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">{visibleProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div> : <div className="rounded-[2rem] border border-dashed border-line px-6 py-20 text-center"><p className="text-2xl font-black tracking-[-0.04em]">Nothing matches that search.</p><p className="mt-2 text-ink/55">Try widening your filters.</p></div>}
+      <div className="mb-6 mt-12 flex items-center justify-between"><p className="text-sm text-ink/70">{visibleProducts.length} {visibleProducts.length === 1 ? 'piece' : 'pieces'}</p></div>
+      {visibleProducts.length > 0 ? <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">{visibleProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div> : <div className="rounded-[2rem] border border-dashed border-line px-6 py-20 text-center"><p className="text-2xl font-black tracking-[-0.04em]">Nothing matches that search.</p><p className="mt-2 text-ink/70">Try widening your filters.</p></div>}
     </>
   );
 }

@@ -10,7 +10,7 @@ export function ProductPurchase({ product }: { product: Product }) {
   const [selectedVariantId, setSelectedVariantId] = useState(product.variants[0]?.id ?? '');
   const selectedVariant = product.variants.find((variant) => variant.id === selectedVariantId) ?? product.variants[0];
 
-  if (!selectedVariant) return <p className="text-sm text-ink/60">No variants are currently available.</p>;
+  if (!selectedVariant) return <p className="text-sm text-ink/70">No variants are currently available.</p>;
 
   return (
     <div className="space-y-6">
