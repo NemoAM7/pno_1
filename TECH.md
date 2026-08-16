@@ -1,7 +1,7 @@
 # TECH — Sports Ecommerce Brand Website
 
 > **Status:** Draft v1
-> **Last Updated:** Aug 14 2026
+> **Last Updated:** Aug 16 2026
 > **Supersedes:** none — initial architecture
 > **Related:** [PRD.md](./PRD.md)
 
@@ -63,6 +63,11 @@ All versions below were verified as the current **stable** release on npm as of 
 - Global metadata, title templates, Open Graph defaults, and Twitter card defaults live in `app/layout.tsx`.
 - Route-specific metadata lives beside each page, with product and category metadata generated from validated fixtures.
 - `app/robots.ts` and `app/sitemap.ts` generate static SEO files from `NEXT_PUBLIC_SITE_URL` and the catalog.
+
+### 2.7 Deployment
+- Vercel is the current testing and deployment host for the static export.
+- Production deployments must configure `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`, and `NEXT_PUBLIC_CONTACT_WEB3FORMS_ACCESS_KEY` in the hosting environment.
+- A custom domain may be connected through Vercel DNS records without changing the application architecture.
 
 ---
 

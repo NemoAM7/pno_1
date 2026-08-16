@@ -2,7 +2,7 @@
 
 > **Status:** Draft v1
 > **Owner:** [Your Name]
-> **Last Updated:** Aug 14 2026
+> **Last Updated:** Aug 16 2026
 
 ---
 
@@ -128,19 +128,22 @@ A marketing + commerce website for a sports brand. Customers can browse the cata
 - **No admin dashboard or inventory management.**
 - **No shipping carrier integrations** (shipping is estimated/static).
 - **No multi-language or multi-currency.** v1 is India-first with INR pricing and Indian checkout conventions.
-- **No SEO/analytics tooling** beyond basic metadata (later iteration).
+- **No analytics tooling** in v1. Initial SEO metadata, robots, and sitemap are implemented; advanced SEO remains deferred.
 - **No native mobile app.**
 - **No custom admin dashboard.** The business owner uses Web3Forms notifications/submissions for customization and contact leads.
 
 ---
 
-## 5. Technical Approach (placeholder — refine in TECH.md)
+## 5. Technical Approach
 
-- Static site / SPA (framework TBD) with componentized UI.
-- Product catalog from local data files.
-- Cart state via localStorage.
-- Deployable to static hosting (e.g., Netlify / Vercel / GitHub Pages).
-- Details will be specified in the architecture blueprint.
+- Next.js 16 App Router with a fully static export.
+- Product and category catalog data from validated local JSON fixtures.
+- Cart state managed by Zustand and persisted to localStorage.
+- Checkout uses a mock payment provider behind an interface.
+- Customization and contact submissions use Web3Forms as the managed external provider.
+- Global and route-specific metadata, Open Graph/Twitter defaults, robots, and sitemap are implemented for the initial SEO pass.
+- Deployable to static hosting, currently tested on Vercel.
+- Detailed module boundaries and data flow are specified in `TECH.md` and `ARCHITECTURE.md`.
 
 ---
 
